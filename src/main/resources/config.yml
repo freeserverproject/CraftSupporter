@@ -1,6 +1,6 @@
 #### CraftSupport ####
 
-recipes:
+recipe:
     # デモレシピ
     demo-recipe:
         enabled: true
@@ -16,12 +16,12 @@ recipes:
             - 'DURABILITY:1'
         custom-model-data: 0
         # 固定レシピかどうか
-        shapeless: false
+        is-shaped: false
+        # 何も入れない場所は半角スペースを入力
         shape:
-            - 'XAX'
+            - ' A '
             - 'ABA'
-            - 'XAX'
+            - ' A '
         ingredients:
             A: 'IRON_INGOT'
             B: 'DIAMOND'
-            X: 'AIR'

@@ -46,14 +46,16 @@ class Racipe(recipeName: String, itemName: String, material: String, amount: Int
         if(isShaped) {
             recipe = itemResult?.let { ShapedRecipe(recipeName, it) }!!
             recipe as ShapedRecipe
-
+            for (i in ingredients) {
+                recipe.setIngredient(i.key, Material.getMaterial(i.value)?:Material.STONE)
+            }
+            recipe.shape(shape[0], shape[1], shape[2])
         } else {
             recipe = itemResult?.let { ShapelessRecipe(recipeName, it) }!!
             recipe as ShapelessRecipe
+            for (i in ingredients) {
+                recipe.addIngredient(Material.getMaterial(i.value)?:Material.STONE)
+            }
         }
-    }
-
-    private fun ingredientIterator(func:() -> Int) {
-        TODO("素材を読み込む")
     }
 }
