@@ -24,7 +24,7 @@ class ItemStackAPI(material: Material, amount: Int, itemName: String, lore: List
     fun getItemStack(): ItemStack {
         val itemStack = ItemStack(material, amount)
         val itemMeta = itemStack.itemMeta
-        itemMeta.displayName()
+        itemMeta.setDisplayName(itemName)
         itemMeta.setLore(lore)
         itemMeta.setCustomModelData(customModelData)
         itemStack.itemMeta = itemMeta
