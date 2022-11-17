@@ -1,5 +1,6 @@
 package pro.freeserver.plugin.alphakun.craftsupporter.classes
 
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
@@ -23,6 +24,7 @@ class Racipe(recipeName: String, itemName: String, material: String, amount: Int
 
 
     init {
+        println("RecipeInit!!")
         this.isShaped = shapeless
         this.itemAmount = amount
         this.itemMaterial = Material.getMaterial(material)?:Material.STONE
@@ -47,6 +49,7 @@ class Racipe(recipeName: String, itemName: String, material: String, amount: Int
             recipe = itemResult?.let { ShapedRecipe(recipeName, it) }!!
             recipe as ShapedRecipe
             for (i in ingredients) {
+                println(i.key + "," + i.value)
                 recipe.setIngredient(i.key, Material.getMaterial(i.value)?:Material.STONE)
             }
             recipe.shape(shape[0], shape[1], shape[2])
