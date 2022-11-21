@@ -6,7 +6,7 @@
 
     <groupId>pro.freeserver.plugin.alphakun</groupId>
     <artifactId>CraftSupporter</artifactId>
-    <version>0.0.1-dev</version>
+    <version>1.0.0-release</version>
     <packaging>jar</packaging>
 
     <name>CraftSupporter</name>
