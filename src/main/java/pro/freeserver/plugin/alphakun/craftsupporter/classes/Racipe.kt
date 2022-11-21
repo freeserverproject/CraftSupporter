@@ -10,7 +10,7 @@ import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.ShapelessRecipe
 import pro.freeserver.plugin.alphakun.craftsupporter.CraftSupporter.Companion.plugin
 
-class Racipe(recipeName: String, itemName: String, material: String, amount: Int, lore: List<String>, enchant: List<String>?, customModelData: Int, shapeless: Boolean, shape: List<String>, ingredients: Map<Char, String>) {
+class Racipe(recipeName: String, itemName: String, material: String, amount: Int, lore: List<String>, enchant: List<String>?, customModelData: Int, shapeless: Boolean, shape: List<String>, ingredients: List<Ingredient>) {
 
     private var recipeName: NamespacedKey
     private var itemAmount: Int
@@ -20,8 +20,7 @@ class Racipe(recipeName: String, itemName: String, material: String, amount: Int
     private var itemResult: ItemStack? = null
     private var isShaped: Boolean = false
     private var shape: List<String>
-    private var ingredients: Map<Char, String>
-
+    private var ingredients: List<Ingredient>
 
     init {
         this.isShaped = shapeless
@@ -39,30 +38,27 @@ class Racipe(recipeName: String, itemName: String, material: String, amount: Int
                }
            }
         }
-        this.itemResult = ItemStackAPI(itemMaterial, itemAmount, itemName?:"", itemLore, itemEnchant, customModelData).getItemStack()
+        this.itemResult = ItemStackAPI(itemMaterial, itemAmount, itemName, itemLore, itemEnchant, customModelData).getItemStack()
     }
 
     fun registerRecipe() {
-        var recipe: Recipe
+        val recipe: Recipe
         if(isShaped) {
             recipe = itemResult?.let { ShapedRecipe(recipeName, it) }!!
             recipe as ShapedRecipe
             recipe.shape(shape[0], shape[1], shape[2])
             for (i in ingredients) {
-                println(i.key + "," + i.value)
-                recipe.setIngredient(i.key, Material.getMaterial(i.value)?:Material.STONE)
+                val item = ItemStackAPI(material =  i.getMaterial()?:break ,amount= i.getAmount(), customModelData = i.getCustomModelData())
+                recipe.setIngredient(i.getIngredientKey(), item.getItemStack())
             }
         } else {
             recipe = itemResult?.let { ShapelessRecipe(recipeName, it) }!!
             recipe as ShapelessRecipe
             for (i in ingredients) {
-                recipe.addIngredient(Material.getMaterial(i.value)?:Material.STONE)
+                val item = ItemStackAPI(material =  i.getMaterial()?:break ,amount= i.getAmount(), customModelData = i.getCustomModelData())
+                recipe.addIngredient(item.getItemStack())
             }
         }
-        if (Bukkit.addRecipe(recipe)){
-            println("Recipe Registered: $recipeName")
-        } else {
-            println("Recipe Failed: $recipeName")
-        }
+        if (!Bukkit.addRecipe(recipe)) println("Recipe Failed: $recipeName")
     }
 }

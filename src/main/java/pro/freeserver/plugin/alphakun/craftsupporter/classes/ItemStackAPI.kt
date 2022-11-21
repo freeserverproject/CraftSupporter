@@ -4,13 +4,13 @@ import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
-class ItemStackAPI(material: Material, amount: Int, itemName: String, lore: List<String>, enchant: List<Enchantment>, customModelData: Int) {
-    var material: Material = Material.AIR
-    var amount: Int = 0
-    var itemName: String = ""
-    var lore: List<String> = listOf()
-    var enchant: List<Enchantment> = listOf()
-    var customModelData: Int = 0
+class ItemStackAPI(material: Material, amount: Int, itemName: String = "", lore: List<String> = listOf(), enchant: List<Enchantment> = listOf(), customModelData: Int = 0) {
+    var material: Material
+    var amount: Int
+    var itemName: String
+    var lore: List<String>
+    var enchant: List<Enchantment>
+    var customModelData: Int
 
     init {
         this.material = material

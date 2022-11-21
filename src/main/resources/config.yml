@@ -23,5 +23,11 @@ recipe:
             - 'ABA'
             - ' A '
         ingredients:
-            A: 'IRON_INGOT'
-            B: 'DIAMOND'
+            A:
+                material: 'DIAMOND'
+                amount: 1
+                custom-model-data: 0
+            B:
+                material: 'IRON_INGOT'
+                amount: 1
+                custom-model-data: 0
