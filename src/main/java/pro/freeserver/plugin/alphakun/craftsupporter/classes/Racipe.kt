@@ -24,7 +24,6 @@ class Racipe(recipeName: String, itemName: String, material: String, amount: Int
 
 
     init {
-        println("RecipeInit!!")
         this.isShaped = shapeless
         this.itemAmount = amount
         this.itemMaterial = Material.getMaterial(material)?:Material.STONE
@@ -43,22 +42,27 @@ class Racipe(recipeName: String, itemName: String, material: String, amount: Int
         this.itemResult = ItemStackAPI(itemMaterial, itemAmount, itemName?:"", itemLore, itemEnchant, customModelData).getItemStack()
     }
 
-    fun registerData() {
+    fun registerRecipe() {
         var recipe: Recipe
         if(isShaped) {
             recipe = itemResult?.let { ShapedRecipe(recipeName, it) }!!
             recipe as ShapedRecipe
+            recipe.shape(shape[0], shape[1], shape[2])
             for (i in ingredients) {
                 println(i.key + "," + i.value)
                 recipe.setIngredient(i.key, Material.getMaterial(i.value)?:Material.STONE)
             }
-            recipe.shape(shape[0], shape[1], shape[2])
         } else {
             recipe = itemResult?.let { ShapelessRecipe(recipeName, it) }!!
             recipe as ShapelessRecipe
             for (i in ingredients) {
                 recipe.addIngredient(Material.getMaterial(i.value)?:Material.STONE)
             }
+        }
+        if (Bukkit.addRecipe(recipe)){
+            println("Recipe Registered: $recipeName")
+        } else {
+            println("Recipe Failed: $recipeName")
         }
     }
 }
