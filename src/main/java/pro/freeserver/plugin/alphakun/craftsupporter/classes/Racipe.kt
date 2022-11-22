@@ -42,23 +42,29 @@ class Racipe(recipeName: String, itemName: String, material: String, amount: Int
     }
 
     fun registerRecipe() {
-        val recipe: Recipe
+        var recipe: Recipe
         if(isShaped) {
             recipe = itemResult?.let { ShapedRecipe(recipeName, it) }!!
             recipe as ShapedRecipe
             recipe.shape(shape[0], shape[1], shape[2])
             for (i in ingredients) {
-                val item = ItemStackAPI(material =  i.getMaterial()?:break ,amount= i.getAmount(), customModelData = i.getCustomModelData())
+                val item = ItemStackAPI(material =  i.getMaterial()?:Material.STONE ,amount= i.getAmount(), customModelData = i.getCustomModelData())
                 recipe.setIngredient(i.getIngredientKey(), item.getItemStack())
             }
         } else {
             recipe = itemResult?.let { ShapelessRecipe(recipeName, it) }!!
             recipe as ShapelessRecipe
+            println(ingredients)
             for (i in ingredients) {
-                val item = ItemStackAPI(material =  i.getMaterial()?:break ,amount= i.getAmount(), customModelData = i.getCustomModelData())
+                val item = ItemStackAPI(material =  i.getMaterial()?:Material.STONE ,amount= i.getAmount(), customModelData = i.getCustomModelData())
                 recipe.addIngredient(item.getItemStack())
+                println("Add " + item.getItemStack().type + "x" + item.getItemStack().amount + " to " + recipeName)
             }
         }
-        if (!Bukkit.addRecipe(recipe)) println("Recipe Failed: $recipeName")
+        if (Bukkit.addRecipe(recipe)) {
+            println("Recipe registered: $recipeName")
+        } else {
+            println("Recipe Failed: $recipeName")
+        }
     }
 }
