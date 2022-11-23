@@ -6,13 +6,17 @@ class Ingredient(ingredientKey: Char, material: String, amount: Int, customModel
     private var ingredientmKey: Char
     private var material: String
     private var amount: Int
-    private var customModelData: Int
+    private var customModelData: Int?
 
     init {
         this.ingredientmKey = ingredientKey
         this.material = material
         this.amount = amount
-        this.customModelData = customModelData
+        if (customModelData == 0) {
+            this.customModelData = null
+        } else {
+            this.customModelData = customModelData
+        }
     }
 
     fun getIngredientKey(): Char {
@@ -27,7 +31,7 @@ class Ingredient(ingredientKey: Char, material: String, amount: Int, customModel
         return amount
     }
 
-    fun getCustomModelData(): Int {
+    fun getCustomModelData(): Int? {
         return customModelData
     }
 }

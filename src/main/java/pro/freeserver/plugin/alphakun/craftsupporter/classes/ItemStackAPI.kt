@@ -20,9 +20,10 @@ class ItemStackAPI(material: Material, amount: Int? = null, itemName: String? = 
         this.itemName = itemName?:""
         this.lore = lore
         this.enchant = enchant?: mapOf()
-        this.customModelData = customModelData
         if (customModelData == 0) {
             this.customModelData = null
+        } else {
+            this.customModelData = customModelData
         }
     }
 
