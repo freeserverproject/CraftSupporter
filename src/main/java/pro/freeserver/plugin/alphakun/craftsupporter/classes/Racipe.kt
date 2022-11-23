@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.Recipe
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.ShapelessRecipe
+import pro.freeserver.plugin.alphakun.craftsupporter.CraftSupporter
 import pro.freeserver.plugin.alphakun.craftsupporter.CraftSupporter.Companion.plugin
 import java.lang.NumberFormatException
 
@@ -75,6 +76,7 @@ class Racipe(recipeName: String, itemName: String?, material: String?, amount: I
         }
         if (Bukkit.addRecipe(recipe)) {
             println("Recipe registered: $recipeName")
+            CraftSupporter.recipes.add(recipeName)
         } else {
             println("Recipe Failed: $recipeName")
         }
