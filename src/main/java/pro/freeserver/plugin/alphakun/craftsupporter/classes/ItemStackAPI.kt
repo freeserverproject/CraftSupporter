@@ -3,30 +3,38 @@ package pro.freeserver.plugin.alphakun.craftsupporter.classes
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
+import java.lang.NullPointerException
 
-class ItemStackAPI(material: Material, amount: Int, itemName: String = "", lore: List<String> = listOf(), enchant: List<Enchantment> = listOf(), customModelData: Int = 0) {
-    var material: Material
+class ItemStackAPI(material: Material, amount: Int? = null, itemName: String? = "", lore: List<String>? = null, enchant: Map<Enchantment, Int>? = null, customModelData: Int? = null) {
+    var material: Material?
     var amount: Int
     var itemName: String
-    var lore: List<String>
-    var enchant: List<Enchantment>
-    var customModelData: Int
+    var lore: List<String>?
+    var enchant: Map<Enchantment, Int>
+    var customModelData: Int?
+    // customModelDataは何も指定されない場合nullになるので注意
 
     init {
         this.material = material
-        this.amount = amount
-        this.itemName = itemName
+        this.amount = amount?:1
+        this.itemName = itemName?:""
         this.lore = lore
-        this.enchant = enchant
+        this.enchant = enchant?: mapOf()
         this.customModelData = customModelData
+        if (customModelData == 0) {
+            this.customModelData = null
+        }
     }
 
     fun getItemStack(): ItemStack {
-        val itemStack = ItemStack(material, amount)
+        val itemStack = ItemStack(material!!,amount)
         val itemMeta = itemStack.itemMeta
         itemMeta.setDisplayName(itemName)
         itemMeta.setLore(lore)
         itemMeta.setCustomModelData(customModelData)
+        for (e in enchant) {
+            itemMeta.addEnchant(e.key,e.value,true)
+        }
         itemStack.itemMeta = itemMeta
         return itemStack
     }

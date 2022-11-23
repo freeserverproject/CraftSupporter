@@ -35,7 +35,7 @@ class LoadRecipe {
                 }
 
                 try {
-                    Racipe(recipe, itemName!!, material!!, amount, lore, enchant, customModelData, shapeless, shape, ingredientsMap).registerRecipe()
+                    Racipe(recipe, itemName, material, amount, lore, enchant, customModelData, shapeless, shape, ingredientsMap).registerRecipe()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
