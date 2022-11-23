@@ -76,7 +76,7 @@ class Racipe(recipeName: String, itemName: String?, material: String?, amount: I
         }
         if (Bukkit.addRecipe(recipe)) {
             println("Recipe registered: $recipeName")
-            CraftSupporter.recipes.add(recipe)
+            CraftSupporter.recipes.add(recipeName)
         } else {
             println("Recipe Failed: $recipeName")
         }
