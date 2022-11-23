@@ -36,7 +36,7 @@ class ItemStackAPI(material: Material, amount: Int? = null, itemName: String? = 
         for (e in enchant) {
             itemMeta.addEnchant(e.key,e.value,true)
         }
-        itemStack.itemMeta = itemMeta
+        itemStack.setItemMeta(itemMeta)
         return itemStack
     }
 }
