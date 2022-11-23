@@ -70,6 +70,7 @@ class Racipe(recipeName: String, itemName: String?, material: String?, amount: I
             for (i in ingredients) {
                 item = ItemStackAPI(material =  i.getMaterial()?:Material.STONE ,amount= i.getAmount(), customModelData = i.getCustomModelData())
                 recipe.addIngredient(item.getItemStack())
+                println(i.getMaterial().toString() + "'s customModelData is" + i.getCustomModelData())
             }
         }
         if (Bukkit.addRecipe(recipe)) {
