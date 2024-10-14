@@ -35,8 +35,8 @@ class Racipe(recipeName: String, itemName: String?, material: String?, amount: I
         // エンチャントを整形
         if (enchant != null) {
            for (e in enchant) {
-               var enchantRawList = e.split(":")
-               var enchantName = enchantRawList[0]
+               val enchantRawList = e.split(":")
+               val enchantName = enchantRawList[0]
                var enchantLevel = 0
                try {
                    enchantLevel = enchantRawList[1].toInt()
